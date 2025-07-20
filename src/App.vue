@@ -4,17 +4,12 @@
     <main>
       <div class="statlist">
         <Statistic
-          v-for="weatherProp of statistics.weatherProperties"
+          v-for="weatherProp of weatherProperties"
           :key="weatherProp.id"
           :statistic="weatherProp"
         />
       </div>
-      <Button>
-        <template #icon>
-          <AkLocation />
-        </template>
-        Change location</Button
-      >
+      <LocationSelect @select-city="getCity" />
     </main>
   </div>
 </template>
@@ -22,17 +17,17 @@
 <script setup lang="ts">
 import Header from "./components/Header.vue";
 import Statistic from "./components/Statistic.vue";
-import Button from "./components/Button.vue";
+import LocationSelect from "./components/LocationSelect.vue";
 
-import { AkLocation } from "@kalimahapps/vue-icons";
+import { useStatisticsStore } from "./store/statisticsStore";
+import { storeToRefs } from "pinia";
 
-import type { StatisticType } from "./types";
+const statisticsStore = useStatisticsStore();
 
-const statistics: StatisticType = {
-  weatherProperties: [
-    { id: "0", name: "Humidity", value: "90%" },
-    { id: "1", name: "Precipitation", value: "30%" },
-  ],
+const { weatherProperties } = storeToRefs(statisticsStore);
+
+const getCity = (): void => {
+  //
 };
 </script>
 

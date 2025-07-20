@@ -23,6 +23,7 @@ const { statistic } = defineProps<{
 
   &-name {
     font-weight: 700;
+    text-transform: uppercase;
   }
 
   &-value {

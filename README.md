@@ -6,6 +6,8 @@
 
 > Vue
 
+> Pinia
+
 ## Useful Elements
 
 - [ ] @kalimahapps/vue-icons
