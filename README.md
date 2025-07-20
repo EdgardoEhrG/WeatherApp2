@@ -8,4 +8,4 @@
 
 ## Useful Elements
 
-- [ ] ...
+- [ ] @kalimahapps/vue-icons

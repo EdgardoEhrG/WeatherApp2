@@ -1,9 +1,17 @@
 @import "variables";
+@import "mixins";
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
 }
 
 :root,
@@ -17,4 +25,8 @@ body {
   color: $primary-color;
 
   background-color: $bg-color;
+}
+
+#app {
+  @include flexer(flex, column, center, center);
 }
