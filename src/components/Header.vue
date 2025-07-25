@@ -1,7 +1,6 @@
-<template>
-  <header>
-    <h1>Weather App</h1>
-  </header>
+<template lang="pug">
+  header
+    h1 Weather App
 </template>
 
 <script lang="ts" setup></script>

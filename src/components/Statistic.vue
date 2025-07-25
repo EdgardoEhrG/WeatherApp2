@@ -1,14 +1,13 @@
-<template>
-  <div class="stat-container">
-    <div class="stat-container-name">{{ statistic.name }}</div>
-    <div class="stat-container-value">{{ statistic.value }}</div>
-  </div>
+<template lang="pug">
+  div.stat-container
+    div.stat-container-name {{ statistic.name }}
+    div.stat-container-value {{ statistic.value }}
 </template>
 
 <script lang="ts" setup>
 import type { WeatherProperty } from "../types";
 
-const { statistic } = defineProps<{
+const props = defineProps<{
   statistic: WeatherProperty;
 }>();
 </script>

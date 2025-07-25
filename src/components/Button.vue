@@ -1,10 +1,8 @@
-<template>
-  <button class="button">
-    <div>
-      <slot name="icon"></slot>
-    </div>
-    <slot />
-  </button>
+<template lang="pug">
+  button.button
+    div
+      slot(name="icon")
+    slot
 </template>
 
 <script lang="ts" setup></script>
@@ -13,7 +11,7 @@
 .button {
   @include flexer(flex, row, space-between, center);
 
-  padding: 14px;
+  padding: 10px 20px;
 
   font-family: $font;
   font-size: 20px;

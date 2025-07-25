@@ -1,5 +1,7 @@
 # Weather App
 
+> Pug
+
 > Sass
 
 > TypeScript

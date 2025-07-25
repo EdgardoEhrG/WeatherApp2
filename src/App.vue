@@ -1,17 +1,11 @@
-<template>
-  <div class="container">
-    <Header />
-    <main>
-      <div class="statlist">
-        <Statistic
-          v-for="weatherProp of weatherProperties"
-          :key="weatherProp.id"
-          :statistic="weatherProp"
-        />
-      </div>
-      <LocationSelect @select-city="getCity" />
-    </main>
-  </div>
+<template lang="pug">
+  div.container
+    Header
+    main
+      span {{ savedCity }}
+      div.statlist
+        Statistic(v-for="weatherProp of weatherProperties" :key="weatherProp.id" :statistic="weatherProp")
+      LocationSelect(@change-location="getCity")
 </template>
 
 <script setup lang="ts">
@@ -21,13 +15,16 @@ import LocationSelect from "./components/LocationSelect.vue";
 
 import { useStatisticsStore } from "./store/statisticsStore";
 import { storeToRefs } from "pinia";
+import { ref } from "vue";
 
 const statisticsStore = useStatisticsStore();
 
 const { weatherProperties } = storeToRefs(statisticsStore);
 
-const getCity = (): void => {
-  //
+const savedCity = ref<string>("Jackson");
+
+const getCity = (city: string): void => {
+  savedCity.value = city;
 };
 </script>
 
