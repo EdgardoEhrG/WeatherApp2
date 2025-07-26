@@ -5,7 +5,7 @@
         AkLocation
       | Change location
     template(v-else)
-      Field(@update:value="updateCity" :value="city")
+      Field(v-model="city" @keyup.enter="selectCity")
       Button(@click="selectCity")
         template(#icon)
           AdSave
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Button from "../components/Button.vue";
 import Field from "./Field.vue";
 
@@ -36,6 +36,10 @@ const edit = (): void => {
 const updateCity = (newCity: string): void => {
   city.value = newCity;
 };
+
+onMounted(() => {
+  emit("changeLocation", city.value);
+});
 </script>
 
 <style lang="scss" scoped>

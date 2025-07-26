@@ -16,15 +16,15 @@ import LocationSelect from "./components/LocationSelect.vue";
 import { useStatisticsStore } from "./store/statisticsStore";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
+import { fetchWeatherByCity } from "./services/weather";
 
 const statisticsStore = useStatisticsStore();
 
 const { weatherProperties } = storeToRefs(statisticsStore);
 
-const savedCity = ref<string>("Jackson");
-
-const getCity = (city: string): void => {
-  savedCity.value = city;
+const getCity = async (city: string) => {
+  const data = await fetchWeatherByCity(city);
+  console.log(data);
 };
 </script>
 

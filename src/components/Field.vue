@@ -1,21 +1,10 @@
 <template lang="pug">
   div
-    input(class="input" type="text" placeholder="Type a city" :value="value" @input="updateValue($event)")
+    input(class="input" type="text" placeholder="Type a city" v-model="data")
 </template>
 
 <script lang="ts" setup>
-const { value } = defineProps<{
-  value: string;
-}>();
-
-const emit = defineEmits<{
-  (e: "update:value", value: string): void;
-}>();
-
-const updateValue = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  emit("update:value", target.value);
-};
+const data = defineModel<string>();
 </script>
 
 <style lang="scss" scoped>
