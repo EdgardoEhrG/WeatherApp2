@@ -1,30 +1,29 @@
 <template lang="pug">
   div.container
     Header
+    LocationInfo(:savedCity :additionalInfo)
     main
-      span {{ savedCity }}
       div.statlist
         Statistic(v-for="weatherProp of weatherProperties" :key="weatherProp.id" :statistic="weatherProp")
-      LocationSelect(@change-location="getCity")
+      LocationSelect(@change-location="getCity" :getWeatherStatisticByCity="getWeatherStatisticByCity")
 </template>
 
 <script setup lang="ts">
-import Header from "./components/Header.vue";
-import Statistic from "./components/Statistic.vue";
-import LocationSelect from "./components/LocationSelect.vue";
-
 import { useStatisticsStore } from "./store/statisticsStore";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import { fetchWeatherByCity } from "./services/weather";
 
 const statisticsStore = useStatisticsStore();
 
-const { weatherProperties } = storeToRefs(statisticsStore);
+const { weatherProperties, additionalInfo } = storeToRefs(statisticsStore);
+
+const { getWeatherStatisticByCity } = statisticsStore;
+
+const savedCity = ref<string>("Austin");
 
 const getCity = async (city: string) => {
-  const data = await fetchWeatherByCity(city);
-  console.log(data);
+  await getWeatherStatisticByCity(city);
+  savedCity.value = city;
 };
 </script>
 
@@ -43,6 +42,10 @@ const getCity = async (city: string) => {
 
     .statlist {
       margin-bottom: 20px;
+    }
+
+    .sep {
+      margin: 10px 0px;
     }
   }
 }

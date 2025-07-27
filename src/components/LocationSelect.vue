@@ -14,10 +14,12 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
-import Button from "../components/Button.vue";
-import Field from "./Field.vue";
 
 import { AkLocation, AdSave } from "@kalimahapps/vue-icons";
+
+const { getWeatherStatisticByCity } = defineProps<{
+  getWeatherStatisticByCity: (city: string) => Promise<void>;
+}>();
 
 const emit = defineEmits(["changeLocation"]);
 
@@ -37,8 +39,9 @@ const updateCity = (newCity: string): void => {
   city.value = newCity;
 };
 
-onMounted(() => {
-  emit("changeLocation", city.value);
+onMounted(async () => {
+  updateCity("Austin");
+  await getWeatherStatisticByCity("Austin");
 });
 </script>
 
