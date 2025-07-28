@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 
 import { AkLocation, AdSave } from "@kalimahapps/vue-icons";
 
@@ -24,7 +24,7 @@ const { getWeatherStatisticByCity } = defineProps<{
 const emit = defineEmits(["changeLocation"]);
 
 const isEdited = ref<boolean>(false);
-const city = ref<string>("Austin");
+const city = ref<string>("");
 
 const selectCity = (): void => {
   isEdited.value = false;
@@ -38,11 +38,6 @@ const edit = (): void => {
 const updateCity = (newCity: string): void => {
   city.value = newCity;
 };
-
-onMounted(async () => {
-  updateCity("Austin");
-  await getWeatherStatisticByCity("Austin");
-});
 </script>
 
 <style lang="scss" scoped>

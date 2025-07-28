@@ -1,9 +1,5 @@
-export type StatisticType = {
-  weatherProperties: WeatherProperty[];
-};
-
-export type WeatherProperty = {
-  id: string;
+export interface IStatisticData {
+  code: string;
   name: string;
-  value: string;
-};
+  value: string | number;
+}

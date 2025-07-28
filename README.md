@@ -13,3 +13,5 @@
 ## Useful Elements
 
 - [ ] @kalimahapps/vue-icons
+
+- [ ] Global components

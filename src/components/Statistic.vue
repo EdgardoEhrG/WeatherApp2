@@ -1,15 +1,32 @@
 <template lang="pug">
   div.stat-container
-    div.stat-container-name {{ statistic.name }}
-    div.stat-container-value {{ statistic.value }}
+    div.stat-container-name {{ propertyName }}
+    div.stat-container-value {{ propertyValue }}
 </template>
 
 <script lang="ts" setup>
-import type { WeatherProperty } from "../types";
+import { computed } from "vue";
+import type { IStatisticData } from "../types";
 
 const props = defineProps<{
-  statistic: WeatherProperty;
+  property: IStatisticData;
 }>();
+
+const propertyName = computed(() => {
+  if (props.property && props.property.name) {
+    return props.property.name;
+  } else {
+    return "";
+  }
+});
+
+const propertyValue = computed(() => {
+  if (props.property && props.property.value) {
+    return props.property.value;
+  } else {
+    return "";
+  }
+});
 </script>
 
 <style lang="scss" scoped>

@@ -1,30 +1,35 @@
 <template lang="pug">
   div.container
     Header
-    LocationInfo(:savedCity :additionalInfo)
+    LocationInfo(:savedCity="city" :additionalInfo)
     main
       div.statlist
-        Statistic(v-for="weatherProp of weatherProperties" :key="weatherProp.id" :statistic="weatherProp")
+        Statistic(v-for="weatherProp of currentData" :key="weatherProp.code" :property="weatherProp")
       LocationSelect(@change-location="getCity" :getWeatherStatisticByCity="getWeatherStatisticByCity")
 </template>
 
 <script setup lang="ts">
 import { useStatisticsStore } from "./store/statisticsStore";
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 const statisticsStore = useStatisticsStore();
 
-const { weatherProperties, additionalInfo } = storeToRefs(statisticsStore);
+const { additionalInfo, savedCity, currentData } = storeToRefs(statisticsStore);
 
-const { getWeatherStatisticByCity } = statisticsStore;
+const { getWeatherStatisticByCity, init } = statisticsStore;
 
-const savedCity = ref<string>("Austin");
+const city = ref<string>(savedCity.value);
 
-const getCity = async (city: string) => {
-  await getWeatherStatisticByCity(city);
-  savedCity.value = city;
+const getCity = async (newCity: string) => {
+  await getWeatherStatisticByCity(newCity);
+  city.value = newCity;
 };
+
+onMounted(async () => {
+  init();
+  city.value = savedCity.value;
+});
 </script>
 
 <style lang="scss" scoped>
