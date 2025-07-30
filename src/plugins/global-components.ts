@@ -6,6 +6,8 @@ import Header from "../components/Header.vue";
 import LocationInfo from "../components/LocationInfo.vue";
 import LocationSelect from "../components/LocationSelect.vue";
 import Statistic from "../components/Statistic.vue";
+import DayCard from "../components/DayCard.vue";
+import AsideInfo from "../components/AsideInfo.vue";
 
 const components = {
   Button,
@@ -14,6 +16,8 @@ const components = {
   LocationInfo,
   LocationSelect,
   Statistic,
+  DayCard,
+  AsideInfo,
 };
 
 export default {

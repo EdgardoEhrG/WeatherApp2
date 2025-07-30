@@ -6,6 +6,8 @@ declare module "vue" {
     LocationInfo: typeof import("@/components/LocationInfo.vue")["default"];
     LocationSelect: typeof import("@/components/LocationSelect.vue")["default"];
     Statistic: typeof import("@/components/Statistic.vue")["default"];
+    DayCard: typeof import("@/components/DayCard.vue")["default"];
+    AsideInfo: typeof import("@/components/AsideInfo.vue")["default"];
   }
 }
 export {};

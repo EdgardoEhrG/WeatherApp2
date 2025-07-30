@@ -1,6 +1,11 @@
 <template lang="pug">
   div
-    input(class="input" type="text" placeholder="Type a city" v-model="data")
+    input(
+      class="input"
+      type="text"
+      placeholder="Type a city"
+      v-model="data"
+      )
 </template>
 
 <script lang="ts" setup>

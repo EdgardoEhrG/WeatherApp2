@@ -1,7 +1,7 @@
 <template lang="pug">
   div.location-info-container
-    span.location-info-city {{ `${savedCity} | ` }}
-      span.location-info-additional {{ `${additionalInfo.country}, ${additionalInfo.region}` }}
+    span.location-info-city {{ `City: ${savedCity}` }}
+    span.location-info-additional {{ `${additionalInfo.country}, ${additionalInfo.region}` }}
 </template>
 
 <script lang="ts" setup>
@@ -15,9 +15,11 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .location-info-container {
-  @include flexer(flex, column, center, center);
+  @include flexer(flex, column, flex-start, stretch);
 
   margin-bottom: 20px;
+
+  text-align: center;
 
   .location-info-city {
     margin-bottom: 10px;
@@ -26,6 +28,7 @@ const props = defineProps<{
   }
 
   .location-info-additional {
+    font-size: 24px;
     color: orange;
   }
 }

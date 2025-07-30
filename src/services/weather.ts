@@ -4,7 +4,11 @@ import type { IWeatherData } from "../types/storeTypes";
 
 export const fetchWeatherByCity = async (
   city: string
-): Promise<{ data: IWeatherData }> => {
+): Promise<{
+  data: IWeatherData;
+  status: number;
+  error: string;
+}> => {
   try {
     return await axios.get(
       `${import.meta.env.VITE_API_ENDPOINT}/forecast.json`,
@@ -13,11 +17,15 @@ export const fetchWeatherByCity = async (
           q: city,
           lang: "en",
           key: import.meta.env.VITE_API_KEY,
-          days: 3,
+          days: 6,
         },
       }
     );
   } catch (error) {
-    throw new Error("Cannot get weather info");
+    return {
+      data: [] as unknown as IWeatherData,
+      status: 400,
+      error: "No matching location found.",
+    };
   }
 };

@@ -42,7 +42,7 @@ const updateCity = (newCity: string): void => {
 
 <style lang="scss" scoped>
 .location-select-container {
-  width: 450px;
+  width: 100%;
   height: 50px;
 
   @include flexer(flex, row, center, center);

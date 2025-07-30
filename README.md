@@ -15,3 +15,5 @@
 - [ ] @kalimahapps/vue-icons
 
 - [ ] Global components
+
+- [ ] toast

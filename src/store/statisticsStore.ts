@@ -1,5 +1,8 @@
 import { defineStore } from "pinia";
-import type { IStatisticsState } from "../types/storeTypes";
+import type {
+  IStatisticsState,
+  IWeatherForecastDay,
+} from "../types/storeTypes";
 import { fetchWeatherByCity } from "../services/weather";
 import { transformWeatherData } from "../utils";
 
@@ -9,6 +12,8 @@ export const useStatisticsStore = defineStore("statisticsStore", {
     weatherData: null,
     additionalInfo: "",
     currentData: [],
+    currentForecast: null,
+    error: "",
   }),
 
   getters: {
@@ -21,29 +26,49 @@ export const useStatisticsStore = defineStore("statisticsStore", {
 
       if (savedCity) {
         this.savedCity = savedCity;
-        this.getWeatherStatisticByCity(savedCity);
+
+        await this.getWeatherStatisticByCity(savedCity);
+
+        if (this.weatherData?.forecast) {
+          this.currentForecast = this.weatherData.forecast.forecastday[0];
+        }
       } else {
         this.savedCity = "Austin";
-        this.getWeatherStatisticByCity(this.savedCity);
+
+        await this.getWeatherStatisticByCity(this.savedCity);
+
+        if (this.weatherData?.forecast) {
+          this.currentForecast = this.weatherData.forecast.forecastday[0];
+        }
       }
     },
 
     async saveCity(city: string) {
       localStorage.setItem("savedCity", city);
+      this.savedCity = city;
+    },
+    async setCurentForecast(forecast: IWeatherForecastDay) {
+      this.currentForecast = forecast;
     },
 
     async getWeatherStatisticByCity(city: string) {
       const res = await fetchWeatherByCity(city);
 
-      this.saveCity(city);
+      if (res.status === 200) {
+        await this.saveCity(city);
 
-      const extractedData = transformWeatherData(res.data.current);
+        const extractedData = transformWeatherData(res.data.current);
 
-      this.weatherData = res.data;
-      this.additionalInfo = res.data.location;
-      this.currentData = extractedData;
+        this.weatherData = res.data;
+        this.additionalInfo = res.data.location;
+        this.currentData = extractedData;
+      } else {
+        this.error = res.error;
+      }
+    },
 
-      console.log(this.currentData);
+    async resetError() {
+      this.error = "";
     },
   },
 });
